@@ -30,14 +30,14 @@ onMounted(() => {
   <div id="app" class="bg-light text-dark">
     <!-- Sidebar PC -->
     <aside class="d-none d-md-block sidebar-lg bg-dark text-white vh-100 position-fixed p-3 shadow">
-      <h5 class="text-white text-center mb-4 border-bottom pb-2">⚙️ Admin Panel</h5>
+      <h5 class="text-white text-center mb-4 border-bottom pb-2">G-Scores</h5>
 
       <nav class="nav flex-column">
         <RouterLink
           v-for="item in [
-            { path: '/search-score', label: 'Search Score', icon: 'person' },
-            { path: '/products', label: 'Quản lý Sản phẩm', icon: 'box-seam' },
-            { path: '/customers', label: 'Quản lý Khách hàng', icon: 'people' }
+            { path: '/dashboard', label: 'Dashboard', icon: 'speedometer2' },
+            { path: '/search-score', label: 'Search Score', icon: 'search' },
+            { path: '/report', label: 'Report', icon: 'bar-chart-line' }
           ]"
           :key="item.path"
           :to="item.path"
@@ -56,18 +56,18 @@ onMounted(() => {
     <!-- Sidebar Mobile -->
     <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasSidebar">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title">📋 Menu</h5>
+        <h5 class="offcanvas-title">Menu</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
       </div>
       <div class="offcanvas-body">
-        <RouterLink to="/users" class="text-white px-3 py-2 d-block">
-          <i class="bi bi-person"></i> Người dùng
+        <RouterLink to="/dashboard" lass="d-block text-white py-2">
+          <i class="bi bi-speedometer2"></i> Dashboard
         </RouterLink>
-        <RouterLink to="/products" class="d-block text-white py-2">
-          <i class="bi bi-box-seam"></i> Sản phẩm
+        <RouterLink to="/search-score" class="d-block text-white py-2">
+          <i class="bi bi-search"></i> Search Score
         </RouterLink>
         <RouterLink to="/customers" class="d-block text-white py-2">
-          <i class="bi bi-people"></i> Khách hàng
+          <i class="bi bi-bar-chart-line"></i> Report
         </RouterLink>
 
         <button @click="logout" class="btn btn-danger w-100 mt-4">
@@ -87,7 +87,7 @@ onMounted(() => {
         >
           <i class="bi bi-list"></i>
         </button>
-        <RouterLink class="navbar-brand ms-3" to="/">👤 {{ userName || 'ADMIN' }}</RouterLink>
+        <RouterLink class="navbar-brand ms-3" to="/">G-Scores </RouterLink>
       </div>
     </nav>
 

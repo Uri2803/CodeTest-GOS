@@ -10,6 +10,7 @@ class ScoreController extends Controller
     public function searchBySbd($sbd) {
         try {
             $score = Grade::where('sbd', $sbd)->first();
+            $score->sbd = (string) $score->sbd;
             if (!$score) {
                 return response()->json([
                     'success'=> false,
@@ -19,7 +20,7 @@ class ScoreController extends Controller
             return response()->json([
                 'message' => 'Tìm thấy kết quả',
                 'success'=> true,
-                'data' => $score
+                'score' => $score
             ], 200);
 
         } catch (\Exception $e) {
