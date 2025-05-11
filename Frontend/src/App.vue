@@ -14,18 +14,16 @@ function logout() {
   user.value = null
   router.push('/login')
 }
+
 const user = ref(null);
 const userName = '';
+
 onMounted(() => {
   const storedUser = localStorage.getItem('user');
-  
   user.value = storedUser ? JSON.parse(storedUser) : null;
-  const userName =  user.value;
+  const userName = user.value;
 });
-
-
 </script>
-
 <template>
   <div id="app" class="bg-light text-dark">
     <!-- Sidebar PC -->
@@ -60,7 +58,7 @@ onMounted(() => {
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
       </div>
       <div class="offcanvas-body">
-        <RouterLink to="/dashboard" lass="d-block text-white py-2">
+        <RouterLink to="/dashboard" class="d-block text-white py-2">
           <i class="bi bi-speedometer2"></i> Dashboard
         </RouterLink>
         <RouterLink to="/search-score" class="d-block text-white py-2">
@@ -98,7 +96,6 @@ onMounted(() => {
   </div>
 </template>
 
-
 <style scoped>
 .sidebar-lg {
   width: 240px;
@@ -117,7 +114,7 @@ onMounted(() => {
 
 .content {
   margin-left: 240px;
-  padding: 70px 20px 20px; 
+  padding: 70px 20px 20px;
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
