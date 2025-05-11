@@ -1,6 +1,5 @@
 <template>
-  <div class="container mt-5">
-    <!-- Form nhập SBD -->
+  <div class="container mt-5 position-relative">
     <div class="card shadow mb-4">
       <div class="card-header bg-secondary text-white">
         <h4 class="card-title mb-0">Tra cứu điểm thi</h4>
@@ -16,18 +15,27 @@
                 class="form-control"
                 placeholder="Nhập số báo danh..."
                 required
+                :disabled="isLoading"
               />
             </div>
             <div class="col-md-4 text-end">
-              <button class="btn btn-success w-100" type="submit">Tra cứu</button>
+              <button class="btn btn-success w-100" type="submit" :disabled="isLoading">
+                <span v-if="isLoading">
+                  <LoadingSpinner :show="true" />
+                </span>
+                Tra cứu
+              </button>
             </div>
           </div>
         </form>
       </div>
     </div>
 
-    <!-- Kết quả điểm -->
-    <div v-if="score" class="card shadow mb-4">
+    <div v-if="isLoading" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="background-color: rgba(0, 0, 0, 0.1);">
+      <LoadingSpinner :show="true" />
+    </div>
+
+    <div v-else-if="score" class="card shadow mb-4">
       <div class="card-header bg-info text-white">
         <h5 class="mb-0">Kết quả chi tiết</h5>
       </div>
@@ -59,31 +67,38 @@
       </div>
     </div>
 
-    <!-- Thông báo lỗi -->
     <div v-if="error" class="alert alert-danger mt-4">{{ error }}</div>
   </div>
 </template>
 
 <script>
 import { searchScore } from '../services/score';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 
 export default {
+  components: {
+    LoadingSpinner,
+  },
   data() {
     return {
       sbd: '',
       score: null,
       error: null,
+      isLoading: false,
     };
   },
   methods: {
     async checkScore() {
       this.error = null;
       this.score = null;
+      this.isLoading = true;
       try {
         const response = await searchScore(this.sbd);
         this.score = response.data.score;
       } catch (err) {
         this.error = "Không tìm thấy số báo danh hoặc có lỗi xảy ra.";
+      } finally {
+        this.isLoading = false;
       }
     },
   },

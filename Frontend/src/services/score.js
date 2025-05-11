@@ -7,3 +7,7 @@ export function searchScore(sbd) {
 export function scoreDistribution() {
     return api.get(`/report/score-distribution`);
 }
+
+export function topStudents(block) {
+    return api.get(`/top-students/${block}`);
+}

@@ -72,7 +72,6 @@
     }
   };
   
-  // Options cho biểu đồ chi tiết từng môn
   const detailedChartOptions = reactive({
     responsive: true,
     plugins: {

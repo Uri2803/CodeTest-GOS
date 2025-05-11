@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import SearchScore from '@/page/SearchScore.vue'
 import Report from '@/page/Report.vue'
+import Dashboard from '@/page/Dashboard.vue'
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: SearchScore,
+    path: '/Dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
   },
+
   {
     path: '/search-score',
     name: 'SearchScore',
