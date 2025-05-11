@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Grade extends Model
+class Scores extends Model
 {
-    protected $table = 'grades';
+    protected $table = 'Scores';
     protected $primaryKey = 'sbd';
     public $incrementing = false;
     protected $keyType = 'string';

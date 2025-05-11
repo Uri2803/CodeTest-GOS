@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Jobs\InsertGrade;
 use Illuminate\Support\Facades\Log;
 
-class GradesTableSeeder extends Seeder
+class ScoresTableSeeder extends Seeder
 {
     public function run(): void {
         $path = base_path('database/seeders/diem_thi_thpt_2024.csv');
@@ -24,7 +24,7 @@ class GradesTableSeeder extends Seeder
         $header = array_map('trim', $header);
     
         $batchSize = 1000; 
-        $grades = [];
+        $scores = [];
     
         while (($row = fgetcsv($handle)) !== false) {
             $row = array_map('trim', $row);
@@ -32,7 +32,7 @@ class GradesTableSeeder extends Seeder
             $data = array_combine($header, $row);
             
             if (!empty($data['sbd'])) {
-                $grades[] = [
+                $scores[] = [
                     'sbd' => $data['sbd'],
                     'toan' => is_numeric($data['toan']) ? (float) $data['toan'] : null,
                     'ngu_van' => is_numeric($data['ngu_van']) ? (float) $data['ngu_van'] : null,
@@ -49,13 +49,13 @@ class GradesTableSeeder extends Seeder
                 ];
             }
     
-            if (count($grades) >= $batchSize) {
-                InsertGrade::dispatch($grades);
-                $grades = [];
+            if (count($scores) >= $batchSize) {
+                InsertGrade::dispatch($scores);
+                $scores = [];
             }
         }
-        if (count($grades) > 0) {
-            InsertGrade::dispatch($grades);
+        if (count($scores) > 0) {
+            InsertGrade::dispatch($scores);
         }
     
         fclose($handle);

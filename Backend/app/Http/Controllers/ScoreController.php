@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Grade;
+use App\Models\Scores;
 use PhpParser\Node\Stmt\Block;
 
 class ScoreController extends Controller
@@ -11,7 +11,7 @@ class ScoreController extends Controller
 
     public function searchBySbd($sbd) {
         try {
-            $score = Grade::where('sbd', $sbd)->first();
+            $score = Scores::where('sbd', $sbd)->first();
             $score->sbd = (string) $score->sbd;
             if (!$score) {
                 return response()->json([
@@ -41,10 +41,10 @@ class ScoreController extends Controller
     
         foreach ($subjects as $subject) {
             $result[$subject] = [
-                '>=8' => Grade::where($subject, '>=', 8)->count(),
-                '6-8' => Grade::where($subject, '>=', 6)->where($subject, '<', 8)->count(),
-                '4-6' => Grade::where($subject, '>=', 4)->where($subject, '<', 6)->count(),
-                '<4'  => Grade::where($subject, '<', 4)->count(),
+                '>=8' => Scores::where($subject, '>=', 8)->count(),
+                '6-8' => Scores::where($subject, '>=', 6)->where($subject, '<', 8)->count(),
+                '4-6' => Scores::where($subject, '>=', 4)->where($subject, '<', 6)->count(),
+                '<4'  => Scores::where($subject, '<', 4)->count(),
             ];
         }
     
@@ -56,7 +56,7 @@ class ScoreController extends Controller
 
     public function topStudentsByBlock($block) {
         try {
-            $blockSubjects = Grade::getBlockSubjects();
+            $blockSubjects = Scores::getBlockSubjects();
 
             if (!isset($blockSubjects[$block])) {
                 return response()->json([
@@ -65,7 +65,7 @@ class ScoreController extends Controller
                 ], 400);
             }
 
-            $students = Grade::topByBlock($block)->get();
+            $students = Scores::topByBlock($block)->get();
 
             return response()->json([
                 'success'=> true,

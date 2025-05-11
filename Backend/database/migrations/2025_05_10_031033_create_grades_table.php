@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('grades', function (Blueprint $table) {
+        Schema::create('scores', function (Blueprint $table) {
             $table->string('sbd')->primary();
             $table->float('toan')->nullable();
             $table->float('ngu_van')->nullable();
