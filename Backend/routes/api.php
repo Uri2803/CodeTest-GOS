@@ -5,6 +5,8 @@ use App\Http\Controllers\ScoreController;
 
 Route::get('/scores/{sbd}', [ScoreController::class, 'searchBySbd']);
 
-Route::get('/example', function () {
-    return response()->json(['message' => 'Hello, API!']);
-});
+Route::get('/report/score-distribution', [ScoreController::class, 'scoreDistribution']);
+
+
+
+Route::get('/top-students/{block}', [ScoreController::class, 'topStudentsByBlock']);
