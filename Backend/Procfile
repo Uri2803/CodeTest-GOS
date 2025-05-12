@@ -1,0 +1,2 @@
+web: /usr/sbin/nginx -g 'daemon off;'
+#worker: php artisan queue:work --sleep=3 --tries=3
