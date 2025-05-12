@@ -23,7 +23,7 @@ class ScoresTableSeeder extends Seeder
         $header = fgetcsv($handle);
         $header = array_map('trim', $header);
     
-        $batchSize = 1000; 
+        $batchSize = 1; 
         $scores = [];
     
         while (($row = fgetcsv($handle)) !== false) {
