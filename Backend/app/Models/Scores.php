@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Scores extends Model
 {
-    protected $table = 'Scores';
+    protected $table = 'scores';
     protected $primaryKey = 'sbd';
     public $incrementing = false;
     protected $keyType = 'string';
