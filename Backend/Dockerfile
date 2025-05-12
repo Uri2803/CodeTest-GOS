@@ -1,32 +1,46 @@
-# Sử dụng PHP chính thức (FPM)
-FROM php:8.2-fpm
+FROM php:8.2-apache
 
-# Cài các tiện ích và thư viện cần thiết
+# Cài PHP extensions cần thiết
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+# Cài thêm các công cụ hệ thống và Node.js, npm
 RUN apt-get update && apt-get install -y \
-    zip unzip git curl libpng-dev libjpeg-dev libonig-dev libxml2-dev libzip-dev \
-    libpq-dev libsqlite3-dev sqlite3
+    libpq-dev \
+    nodejs \
+    npm \
+    git \
+    unzip \
+    && docker-php-ext-install pdo_pgsql
 
-# Cài đặt các extension PHP
-RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl
+# Bật các module Apache cần thiết
+RUN a2enmod rewrite ssl
 
-# Cài Composer
+# Cài composer (phiên bản mới nhất từ image composer)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Đặt thư mục làm việc
-WORKDIR /var/www
+WORKDIR /var/www/html
 
-# Copy toàn bộ code vào container
+# Copy mã nguồn Laravel vào container
 COPY . .
 
-# Cài đặt thư viện Laravel (composer)
-RUN composer install --no-dev --optimize-autoloader
+# Cài PHP packages bằng Composer
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Phân quyền
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www
+# Build frontend assets nếu dùng Laravel Mix/Vite
+RUN npm install && npm run build
 
-# Mở cổng 8000 (Laravel serve) - Vẫn giữ để có thể chạy web nếu cần
-EXPOSE 8000
+# Set quyền cho Laravel (nếu chưa set trong entrypoint.sh)
+RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Lệnh chạy ứng dụng (sẽ được override bởi Railway Procfile)
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Copy entrypoint và cấp quyền thực thi
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Copy cấu hình Apache để Laravel chạy từ public/
+COPY apache.conf /etc/apache2/sites-available/000-default.conf
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+
+# Chạy Apache khi container khởi động
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

@@ -10,3 +10,6 @@ Route::get('/report/score-distribution', [ScoreController::class, 'scoreDistribu
 
 
 Route::get('/top-students/{block}', [ScoreController::class, 'topStudentsByBlock']);
+Route::get('/', function () {
+    return 'API is working';
+});
