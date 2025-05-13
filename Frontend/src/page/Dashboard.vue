@@ -26,26 +26,37 @@
           <table class="table table-bordered table-striped shadow">
             <thead class="table-light">
               <tr>
-                <th>#</th>
-                <th>SBD</th>
-                <th>Tổng điểm</th>
-                <th>Ngữ Văn</th>
-                <th>Lịch Sử</th>
-                <th>Địa Lý</th>
-                <th>Toán</th>
-                <th>Ngoại Ngữ</th>
+                <th class="text-center">#</th>
+                <th class="text-center">SBD</th>
+                <th class="text-center">Tổng điểm khối {{ selectedBlock }} </th>
+                <th class="text-center">Toán</th>
+                <th class="text-center">Ngữ Văn</th>
+                <th class="text-center">Ngoại Ngữ</th>
+                <th class="text-center">Vật lý</th>
+                <th class="text-center">Hoá học</th>
+                <th class="text-center">Sinh học</th>
+                <th class="text-center">Lịch Sử</th>
+                <th class="text-center">GDCD</th>
+                <th class="text-center">Địa Lý</th>
+                
+                
               </tr>
             </thead>
             <tbody>
               <tr v-for="(student, index) in topStudents" :key="student.sbd">
-                <td>{{ index + 1 }}</td>
-                <td>{{ student.sbd }}</td>
-                <td><strong class="text-primary">{{ student.total_score }}</strong></td>
-                <td>{{ student.ngu_van || '-' }}</td>
-                <td>{{ student.lich_su || '-' }}</td>
-                <td>{{ student.dia_li || '-' }}</td>
-                <td>{{ student.toan || '-' }}</td>
-                <td>{{ student.ngoai_ngu || '-' }}</td>
+                <td class="text-center">{{ index + 1 }}</td>
+                <td class="text-center">{{ student.sbd }}</td>
+                <td class="text-center"><strong class="text-primary">{{ student.total_score }}</strong></td>
+                <td class="text-center">{{ student.toan || '-' }}</td>
+                <td class="text-center">{{ student.ngu_van || '-' }}</td>
+                <td class="text-center">{{ student.ngoai_ngu || '-' }}</td>
+                <td class="text-center">{{ student.vat_li || '-' }}</td>
+                <td class="text-center">{{ student.hoa_hoc || '-' }}</td>
+                <td class="text-center">{{ student.sinh_hoc || '-' }}</td>
+                <td class="text-center">{{ student.lich_su || '-' }}</td>
+                <td class="text-center">{{ student.dia_li || '-' }}</td>
+                <td class="text-center">{{ student.gdcd || '-' }}</td>
+
               </tr>
             </tbody>
           </table>

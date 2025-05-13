@@ -48,6 +48,11 @@
               <th v-if="score.ngoai_ngu != null">
                 Ngoại Ngữ <span v-if="score.ma_ngoai_ngu">({{ score.ma_ngoai_ngu }})</span>
               </th>
+              <th v-if="score.toan != null">Vật lý</th>
+              <th v-if="score.toan != null">Hoá học</th>
+              <th v-if="score.toan != null">Sinh học</th>
+              
+              
               <th v-if="score.lich_su != null">Lịch Sử</th>
               <th v-if="score.dia_li != null">Địa Lý</th>
               <th v-if="score.gdcd != null">GDCD</th>
@@ -58,6 +63,9 @@
               <td v-if="score.toan != null">{{ score.toan }}</td>
               <td v-if="score.ngu_van != null">{{ score.ngu_van }}</td>
               <td v-if="score.ngoai_ngu != null">{{ score.ngoai_ngu }}</td>
+              <td v-if="score.vat_li != null">{{ score.vat_li }}</td>
+              <td v-if="score.hoa_hoc != null">{{ score.hoa_hoc }}</td>
+              <td v-if="score.sinh_hoc != null">{{ score.sinh_hoc }}</td>
               <td v-if="score.lich_su != null">{{ score.lich_su }}</td>
               <td v-if="score.dia_li != null">{{ score.dia_li }}</td>
               <td v-if="score.gdcd != null">{{ score.gdcd }}</td>
